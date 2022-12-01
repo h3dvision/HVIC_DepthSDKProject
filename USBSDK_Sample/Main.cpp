@@ -4,22 +4,21 @@
 
 int main(void){
 	int width = 640; int height = 480;
-	std::vector<float> xyzir(width * height * 4, 0);
+	std::vector<float> xyzi(width * height * 4, 0);
 	cv::Mat confImg(cv::Size(width, height), CV_8UC3, cv::Scalar(0, 0, 0));
 	cv::Mat depthImg(cv::Size(width, height), CV_8UC3, cv::Scalar(0, 0, 0));
-	cv::Mat rgbImg(cv::Size(width, height), CV_8UC3, cv::Scalar(0, 0, 0));
-	if (!HVIC_IniRGBDAndOpenDefault())
+	if (!HVIC_IniDepthAndOpenDefault())
 		return -1;
 	while (true) {
-		if (!HVIC_GetXyzRgb(xyzir, rgbImg.data))
+		if (!HVIC_GetXyzIR(xyzi))
 			return -1;
-		if (!HVIC_XyziToColorIrZ(xyzir, depthImg.data, confImg.data))
+		if (!HVIC_XyziToColorIrZ(xyzi, depthImg.data, confImg.data))
 			return -1;
-		cv::imshow("DepthImage", depthImg); cv::imshow("RGbImage", rgbImg); // cv::imshow("IRImage", confImg); 
-		std::cout << "Center Depth: " << HVIC_GetDepthValue(xyzir, width / 2, height / 2) << std::endl;
+		cv::imshow("IRImage", confImg); cv::imshow("DepthImage", depthImg);
+		std::cout << "Center Depth: " << HVIC_GetDepthValue(xyzi, width / 2, height / 2) << std::endl;
 		if (cv::waitKey(60) == 'o')
 			break;
 	}
-	HVIC_ReleaseRgbDAndClose();
+	HVIC_ReleaseDepthAndClose();
 	return 0;
 }
