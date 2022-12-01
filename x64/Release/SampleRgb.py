@@ -19,7 +19,10 @@ while (True):
     print(showD[240, 320])
     cv2.imshow("depth", showD)
     cv2.imshow("rgb", arrRgb)
-    if cv2.waitKey(60) == ord('q'):
+    key = cv2.waitKey(60)
+    if key == ord('s'):
+        lib.HVIC_SaveRgbDPly();
+    if key == ord('q'):
         break;
     if not res:
         break;

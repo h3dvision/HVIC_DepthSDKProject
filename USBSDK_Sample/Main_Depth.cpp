@@ -16,8 +16,10 @@ int main(void){
 			return -1;
 		cv::imshow("IRImage", confImg); cv::imshow("DepthImage", depthImg);
 		std::cout << "Center Depth: " << HVIC_GetDepthValue(xyzi, width / 2, height / 2) << std::endl;
-		if (cv::waitKey(60) == 'o')
+		if (cv::waitKey(60) == 'o') {
+			HVIC_SaveDepthPly();
 			break;
+		}
 	}
 	HVIC_ReleaseDepthAndClose();
 	return 0;
