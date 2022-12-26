@@ -20,12 +20,14 @@ extern "C" {
 	HVIC_USBSDKDLL bool HVIC_IniDepthAndOpenDefaultQ();
 	HVIC_USBSDKDLL bool HVIC_GetXyzIR(std::vector<float>& xyzir);
 	HVIC_USBSDKDLL bool HVIC_SaveDepthPly();
+	HVIC_USBSDKDLL bool HVIC_SaveDepthPlyQ();
 	HVIC_USBSDKDLL bool HVIC_ReleaseDepthAndClose();
 	//
 	HVIC_USBSDKDLL bool HVIC_IniRGBDAndOpenDefault();
 	HVIC_USBSDKDLL bool HVIC_IniRGBDAndOpenDefaultQ();
 	HVIC_USBSDKDLL bool HVIC_GetXyzRgb(std::vector<float>& xyz, unsigned char* rgb);
 	HVIC_USBSDKDLL bool HVIC_SaveRgbDPly();
+	HVIC_USBSDKDLL bool HVIC_SaveRgbDPlyQ();
 	HVIC_USBSDKDLL bool HVIC_ReleaseRgbDAndClose();
     
 	HVIC_USBSDKDLL bool HVIC_XyziToColorIrZ(std::vector<float> xyza, unsigned char* color, unsigned char* irz);
