@@ -8,7 +8,7 @@ lib = dll("./HVIC_USBSDK.dll")
 #lib = dll("/usr/local/lib/libHVIC_USBSDK.so")
 lib.HVIC_IniDepthAndOpenDefaultPy()
 lib.HVIC_GetXyzIRPy.argtypes = [ndpointer(ctypes.c_float)]
-lib.restype = None
+lib.HVIC_GetXyzIRPy.restype = ctypes.c_bool
 
 while (True):
     xyzir = np.zeros((480*4, 640), np.float32)
@@ -18,13 +18,13 @@ while (True):
     ir = xyzir[1440:1920, 0:640]
     showIR = np.zeros((480, 640, 3), np.uint8)
     showIR[:,:,0] = showIR[:,:,1] = showIR[:,:,2] = ir*(255.0/(ir.max()+1.0))
+    print("center depth: ") 
     print(showD[240, 320])
     cv2.imshow("depth", showD)
     cv2.imshow("ir", showIR)
-    key = cv2.waitKey(60)
-    if key == ord('s'):
+    if cv2.waitKey(60) == ord('s'):
         lib.HVIC_SaveDepthPly();
-    if key == ord('q'):
+    if cv2.waitKey(60) == 27:
         break;
     if not res:
         break;

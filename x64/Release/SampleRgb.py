@@ -7,7 +7,7 @@ dll = ctypes.cdll.LoadLibrary
 lib = dll("./HVIC_USBSDK.dll")
 lib.HVIC_IniRGBDAndOpenDefaultPy()
 lib.HVIC_GetXyzRgbPy.argtypes = [ndpointer(ctypes.c_float), ndpointer(ctypes.c_uint8)]
-lib.restype = bool
+lib.HVIC_GetXyzRgbPy.restype = ctypes.c_bool
 
 while (True):
     xyzir = np.zeros((480*4, 640), np.float32)
@@ -16,13 +16,13 @@ while (True):
     arrRgb = np.asarray(rgb)
     res = lib.HVIC_GetXyzRgbPy(arrXyzir, arrRgb)
     showD = xyzir[960:1440, 0:640]
+    print("center depth: ")
     print(showD[240, 320])
     cv2.imshow("depth", showD)
     cv2.imshow("rgb", arrRgb)
-    key = cv2.waitKey(60)
-    if key == ord('s'):
+    if cv2.waitKey(60) == ord('s'):
         lib.HVIC_SaveRgbDPly();
-    if key == ord('q'):
+    if cv2.waitKey(60) == 27:
         break;
     if not res:
         break;
