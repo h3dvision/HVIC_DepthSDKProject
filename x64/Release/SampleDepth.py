@@ -5,7 +5,6 @@ import cv2
 
 dll = ctypes.cdll.LoadLibrary
 lib = dll("./HVIC_USBSDK.dll")
-#lib = dll("/usr/local/lib/libHVIC_USBSDK.so")
 lib.HVIC_IniDepthAndOpenDefaultPy()
 lib.HVIC_GetXyzIRPy.argtypes = [ndpointer(ctypes.c_float)]
 lib.HVIC_GetXyzIRPy.restype = ctypes.c_bool
