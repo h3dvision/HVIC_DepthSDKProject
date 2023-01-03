@@ -8,16 +8,20 @@ lib = dll("./HVIC_USBSDK.dll")
 lib.HVIC_IniRGBDAndOpenDefaultPy()
 lib.HVIC_GetXyzRgbPy.argtypes = [ndpointer(ctypes.c_float), ndpointer(ctypes.c_uint8)]
 lib.HVIC_GetXyzRgbPy.restype = ctypes.c_bool
+width = 640
+height = 480
+h_width = 320
+h_height = 240
 
 while (True):
-    xyzir = np.zeros((480*4, 640), np.float32)
+    xyzir = np.zeros((height*4, width), np.float32)
     arrXyzir = np.asarray(xyzir)
-    rgb = np.zeros((480, 640, 3), np.uint8)
+    rgb = np.zeros((height, width, 3), np.uint8)
     arrRgb = np.asarray(rgb)
     res = lib.HVIC_GetXyzRgbPy(arrXyzir, arrRgb)
-    showD = xyzir[960:1440, 0:640]
+    showD = xyzir[height*2:height*3, 0:width]
     print("center depth: ")
-    print(showD[240, 320])
+    print(showD[h_height, h_width])
     cv2.imshow("depth", showD)
     cv2.imshow("rgb", arrRgb)
     if cv2.waitKey(60) == ord('s'):
